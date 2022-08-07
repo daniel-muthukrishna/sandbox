@@ -1,0 +1,2 @@
+,tid,mjd,candid,fid,pid,diffmaglim,isdiffpos,nid,distnr,magpsf,magap,sigmapsf,sigmagap,ra,dec,rb,rbversion,drb,magapbig,sigmagapbig,rfid,has_stamp,corrected,dubious,step_id_corr,phase,parent_candid
+0,ztf,58900.34783559991,1146347832115015007,1,1146347832115,20.301905,1,1146,2.158761,19.814602,19.4818,0.1654092,0.1795,193.6202294,61.9999088,0.5814286,t17_f5_c3,0.99969304,19.4559,0.2213,820120121,True,False,False,bulk_1.0.0,0.0,0

@@ -1,0 +1,1 @@
+/Users/danielmuthukrishna/Documents/Projects/Fausnaugh_lightcurves/tns_web_scraper.py

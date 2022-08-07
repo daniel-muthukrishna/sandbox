@@ -1,0 +1,2 @@
+,tid,mjd,candid,fid,pid,diffmaglim,isdiffpos,nid,distnr,magpsf,magpsf_corr,magap,sigmapsf,sigmapsf_corr,sigmapsf_corr_ext,sigmagap,ra,dec,rb,rbversion,drb,magapbig,sigmagapbig,rfid,has_stamp,corrected,dubious,step_id_corr,phase
+0,ztf,59623.35017360002,1869350175415015000,2,1869350175415,19.987955,1,1869,0.7827027,19.535366,18.180536,19.8393,0.1669894,0.042912643,0.047946524,0.3446,177.1069357,50.4365239,0.9442857,t17_f5_c3,0.9999962,19.8597,0.4492,754120254,True,True,False,correction_1.0.6,0.0

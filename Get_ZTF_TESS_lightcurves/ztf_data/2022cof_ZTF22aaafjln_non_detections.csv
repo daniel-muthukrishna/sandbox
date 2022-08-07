@@ -1,0 +1,3 @@
+,tid,mjd,candid,fid,pid,diffmaglim,isdiffpos,nid,distnr,magpsf,magpsf_corr,magap,sigmapsf,sigmapsf_corr,sigmapsf_corr_ext,sigmagap,ra,dec,rb,rbversion,magapbig,sigmagapbig,has_stamp,corrected,dubious,step_id_corr,phase,parent_candid,drb,rfid
+0,ztf,59623.30528939981,1869305281215015003,1,1869305281215,19.9025,1,1869,1.36717,19.883,18.607065,20.0241,0.222201,0.053575333,0.068607636,0.4475,173.0955817,45.3019984,0.89,t17_f5_c3,20.1917,0.6689,False,True,False,correction_1.0.6,0.0,1.871281441215015e+18,,
+1,ztf,59625.2814468001,1871281441215015000,2,1871281441215,19.617783,1,1871,1.4658365,19.380959,,20.0012,0.18147495,,,0.5758,173.0956315,45.3020441,0.8642857,t17_f5_c3,19.5995,0.5091,True,False,False,correction_1.0.6,0.0,,0.9999714,754120212.0
