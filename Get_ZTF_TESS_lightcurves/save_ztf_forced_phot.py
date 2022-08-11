@@ -6,7 +6,7 @@ import pandas as pd
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 import matplotlib.pyplot as plt
-from helpers import make_plot
+from helpers import make_plot_proccodes
 
 
 # Get list of saved requests
@@ -67,46 +67,43 @@ for i, row in ztf_requests[0].iterrows():
                 fieldmask = (lc['field,'] == fieldnum)
 
                 # Plot lightcurves in each field before calibration
-                gmask = (lc['filter,'] == 'ZTF_g') & (lc['field,'] == fieldnum)
-                rmask = (lc['filter,'] == 'ZTF_r') & (lc['field,'] == fieldnum)
-                make_plot(gtime=lc['jd,'][gmask],
-                          rtime=lc['jd,'][rmask],
-                          gflux=lc['forcediffimflux,'][gmask],
-                          rflux=lc['forcediffimflux,'][rmask],
-                          gfluxerr=lc['forcediffimfluxunc,'][gmask],
-                          rfluxerr=lc['forcediffimfluxunc,'][rmask],
-                          title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_field{fieldnum}",
-                          fpath=f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_field{fieldnum}_lc.pdf")
+                fig = make_plot_proccodes(lc=lc,
+                                          gmask=(lc['filter,'] == 'ZTF_g') & (lc['field,'] == fieldnum),
+                                          rmask = (lc['filter,'] == 'ZTF_r') & (lc['field,'] == fieldnum),
+                                          title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_field{fieldnum}",
+                                          fpath=f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_field{fieldnum}_lc.pdf",
+                                          triggertime=saved_catalog_match['jd_discovery_date'])
 
                 for filt in ['ZTF_g', 'ZTF_r']:
                     filtmask = (lc['filter,'] == filt)
 
+                    # Shade reference image region
+                    ax = fig.gca()
+                    ax.axvspan(lc[fieldmask & filtmask]['refjdstart,'].max(), lc[fieldmask & filtmask]['refjdend,'].min(), facecolor='black', alpha=0.2, label='ref images')
+                    fig.savefig(f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_field{fieldnum}_lc.pdf")
+
                     # Calibrate baseline correction of bad field filter lcs
                     if not lc[badrefmask & fieldmask & filtmask].empty:
                         pretriggermask = (lc[fieldmask & filtmask]['jd,'] < triggertime)
-                        baseline = np.median(lc[fieldmask & filtmask & pretriggermask]['forcediffimflux,'])
+                        baseline = np.nanmedian(lc[fieldmask & filtmask & pretriggermask]['forcediffimflux,'])
                         lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] = (lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] - baseline)
 
                 # Plot lightcurves in each field bad field after calibration
                 if fieldnum in lc[badrefmask]['field,'].unique():
-                    gmask = (lc['filter,'] == 'ZTF_g') & (lc['field,'] == fieldnum)
-                    rmask = (lc['filter,'] == 'ZTF_r') & (lc['field,'] == fieldnum)
-                    make_plot(gtime=lc['jd,'][gmask],
-                              rtime=lc['jd,'][rmask],
-                              gflux=lc['forcediffimflux,'][gmask],
-                              rflux=lc['forcediffimflux,'][rmask],
-                              gfluxerr=lc['forcediffimfluxunc,'][gmask],
-                              rfluxerr=lc['forcediffimfluxunc,'][rmask],
-                              title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_field{fieldnum}_calibrated",
-                              fpath=f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_field{fieldnum}_calibrated_lc.pdf")
+                    make_plot_proccodes(lc=lc,
+                                        gmask=(lc['filter,'] == 'ZTF_g') & (lc['field,'] == fieldnum),
+                                        rmask=(lc['filter,'] == 'ZTF_r') & (lc['field,'] == fieldnum),
+                                        title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_field{fieldnum}_calibrated",
+                                        fpath=f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_field{fieldnum}_calibrated_lc.pdf",
+                                        triggertime=saved_catalog_match['jd_discovery_date'])
 
         # Check phot uncertainties
         for fieldnum in lc['field,'].unique():
             fieldmask = (lc['field,'] == fieldnum)
             for filt in ['ZTF_g', 'ZTF_r']:
                 filtmask = (lc['filter,'] == filt)
-                rms_chisq = np.sqrt(np.mean(np.square(lc.loc[(fieldmask & filtmask), 'forcediffimchisq,'])))
-                median_chisq = np.median(lc.loc[(fieldmask & filtmask), 'forcediffimchisq,'])
+                rms_chisq = np.sqrt(np.nanmean(np.square(lc.loc[(fieldmask & filtmask), 'forcediffimchisq,'])))
+                median_chisq = np.nanmedian(lc.loc[(fieldmask & filtmask), 'forcediffimchisq,'])
                 if (rms_chisq > 1.5 or rms_chisq < 0.5) and (median_chisq > 1.3 or median_chisq < 0.7):
                     print(f"WARNING: forcediffimchisq rms is {rms_chisq} and median is {median_chisq}. See section 11 of https://web.ipac.caltech.edu/staff/fmasci/ztf/forcedphot.pdf")
                     plt.hist(lc[fieldmask & filtmask]['forcediffimchisq,'], bins=100)
@@ -116,21 +113,24 @@ for i, row in ztf_requests[0].iterrows():
                     lc.loc[(fieldmask & filtmask), 'forcediffimfluxunc,'] = np.sqrt(rms_chisq) * lc.loc[(fieldmask & filtmask), 'forcediffimfluxunc,']
 
         # Plot corrected light curves
-        gmask = (lc['filter,'] == 'ZTF_g')
-        rmask = (lc['filter,'] == 'ZTF_r')
-        make_plot(gtime=lc['jd,'][gmask],
-                  rtime=lc['jd,'][rmask],
-                  gflux=lc['forcediffimflux,'][gmask],
-                  rflux=lc['forcediffimflux,'][rmask],
-                  gfluxerr=lc['forcediffimfluxunc,'][gmask],
-                  rfluxerr=lc['forcediffimfluxunc,'][rmask],
-                  title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}",
-                  fpath=f"forced_photometry_plots/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_lc.pdf")
+        make_plot_proccodes(lc=lc,
+                            gmask=(lc['filter,'] == 'ZTF_g'),
+                            rmask=(lc['filter,'] == 'ZTF_r'),
+                            title=f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}",
+                            fpath=f"forced_photometry_plots/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}_lc.pdf",
+                            triggertime=saved_catalog_match['jd_discovery_date'])
+
+        # Plot zeropoint distribution
+        plt.figure()
+        plt.hist(lc['zpdiff,'][lc['filter,'] == 'ZTF_r'], bins=100, color='red', alpha=0.4)
+        plt.hist(lc['zpdiff,'][lc['filter,'] == 'ZTF_g'], bins=100, color='green', alpha=0.4)
+        plt.xlabel('zero points')
+        plt.title(f"{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']} \n zpt-median{round(np.nanmedian(lc['zpdiff,']), 3)}_zpt-std{round(np.nanstd(lc['zpdiff,']), 3)}")
+        plt.savefig(f"forced_photometry_plots_baselines/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_zpt-median{round(np.nanmedian(lc['zpdiff,']), 3)}_zpt-std{round(np.nanstd(lc['zpdiff,']), 3)}.png")
+        print(np.median(lc['zpdiff,']))
 
         # Save corrected light curves to file
         lc.loc[:, ('jd,', 'filter,', 'forcediffimflux,', 'forcediffimfluxunc,', 'procstatus')].to_csv(f"forced_photometry_calibrated_lightcurves/{saved_catalog_match['iau_name']}_{saved_catalog_match['ztf_name']}_exitcode{row['exitcode']}.csv", header=('julian_date', 'filter', 'flux', 'flux_unc', 'proc_status_code'), index=False)
-
-
 
     else:
         print(f"Skipping object because it is not one of the requested light curves: {row['reqId']}")
