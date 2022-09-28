@@ -84,9 +84,13 @@ for i, row in ztf_requests[0].iterrows():
 
                     # Calibrate baseline correction of bad field filter lcs
                     if not lc[badrefmask & fieldmask & filtmask].empty:
-                        pretriggermask = (lc[fieldmask & filtmask]['jd,'] < triggertime)
-                        baseline = np.nanmedian(lc[fieldmask & filtmask & pretriggermask]['forcediffimflux,'])
-                        lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] = (lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] - baseline)
+                        pretriggermask = (lc[fieldmask & filtmask]['jd,'] < triggertime) | (lc[fieldmask & filtmask]['jd,'] > triggertime + 100)
+                        if np.any(pretriggermask):
+                            baseline = np.nanmedian(lc[fieldmask & filtmask & pretriggermask]['forcediffimflux,'])
+                            lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] = (lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] - baseline)
+                        else:
+                            lc.loc[(fieldmask & filtmask), 'forcediffimflux,'] = np.nan
+                            lc.loc[(fieldmask & filtmask), 'forcediffimfluxunc,'] = np.nan
 
                 # Plot lightcurves in each field bad field after calibration
                 if fieldnum in lc[badrefmask]['field,'].unique():
