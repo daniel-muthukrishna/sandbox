@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5fbe1e7-bdc0-4e57-8005-3b09a3aa41d1" name="Changes" comment="Make uncertainty distribution plots. Minor changes to other files.">
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/NN_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/all_transients.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/classify.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/pipeline.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Autoencoder_Andrew_code/pre_process.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/make_gifs/make_gif.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Get_ZTF_TESS_lightcurves/request_ztf_forced_phot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Get_ZTF_TESS_lightcurves/request_ztf_forced_phot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +63,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -64,13 +71,14 @@
       <recent name="$PROJECT_DIR$/../Fausnaugh_lightcurves" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Autoencoder_Andrew_code" />
+      <recent name="$PROJECT_DIR$/make_gifs" />
       <recent name="$PROJECT_DIR$/flux_uncertainty_distributions" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Get_ZTF_TESS_lightcurves" />
-      <recent name="$PROJECT_DIR$/bandpass_transmission" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plot_uncertainty_distributions">
+  <component name="RunManager" selected="Python.make_gif">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="sandbox" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,28 +101,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="get_ztf_lightcurves_from_alerce" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="sandbox" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Get_ZTF_TESS_lightcurves/get_ztf_lightcurves_from_alerce.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="sandbox" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,6 +117,28 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="make_gif" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="sandbox" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/make_gifs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/make_gifs/make_gif.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -163,6 +171,9 @@
       <module name="sandbox" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/flux_uncertainty_distributions" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -224,19 +235,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.get_ztf_lightcurves_from_alerce" />
       <item itemvalue="Python.request_ztf_forced_phot" />
       <item itemvalue="Python.save_ztf_forced_phot" />
       <item itemvalue="Python.make_transmission_plot" />
       <item itemvalue="Python.plot_uncertainty_distributions" />
+      <item itemvalue="Python.make_gif" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.make_gif" />
         <item itemvalue="Python.plot_uncertainty_distributions" />
         <item itemvalue="Python.save_ztf_forced_phot" />
         <item itemvalue="Python.make_transmission_plot" />
         <item itemvalue="Python.request_ztf_forced_phot" />
-        <item itemvalue="Python.get_ztf_lightcurves_from_alerce" />
       </list>
     </recent_temporary>
   </component>
@@ -257,7 +268,11 @@
       <workItem from="1659903179761" duration="20000" />
       <workItem from="1659903206676" duration="5000" />
       <workItem from="1659903222652" duration="35169000" />
-      <workItem from="1661129660653" duration="17217000" />
+      <workItem from="1661129660653" duration="24063000" />
+      <workItem from="1665513869916" duration="5579000" />
+      <workItem from="1666384092659" duration="1075000" />
+      <workItem from="1666721142314" duration="1911000" />
+      <workItem from="1668707411054" duration="1974000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed bug using nanmedian instead of median when subtracting baseline.&#10;Add plots separated by process codes. Included shaded time regions for where reference image was take from">
       <created>1660226314281</created>
@@ -287,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664383927630</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Make uncertainty distribution plots. Minor changes to other files.">
+      <created>1664385119011</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1664385119011</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
